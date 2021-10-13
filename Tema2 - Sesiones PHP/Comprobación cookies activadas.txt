@@ -1,0 +1,16 @@
+<?php
+
+//Probar si el cliente tiene activadas las cookies con php
+//La cuestión es que hay que volver a pedir la página para comprobarlo
+
+setcookie('test', 1, time()+3600);
+if(!isset($_GET['cookies'])){  //Primera vez
+    header("Location:" . $_SERVER['PHP_SELF']. "?cookies=true");
+}
+if(isset($_COOKIE['test'])){
+    echo "Cookies activadas";
+} else {
+    echo "Cookies desactivadas";
+}
+
+?>
