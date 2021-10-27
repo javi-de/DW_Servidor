@@ -8,7 +8,17 @@
 </head>
 <body>
     <?php
-        session_start();  
+        ini_set("session.use_cookie", "0");
+        session_start();
+        
+        if(isset($_GET["usu"])){
+            $strUsu= $_GET["usu"];
+            echo $strUsu;
+            //$strPass= $_GET["pass"];
+            //echo $strPass;
+            $_SESSION["login"]= $strUsu;
+        }
+        
     ?>
     
     <p><a href="pedidoplato.php?tipo=Primero">PRIMER PLATO</a></p>
@@ -16,7 +26,7 @@
     <p><a href="pedidoplato.php?tipo=Postre">POSTRE</a></p>
     <p><a href="pedidoplato.php?tipo=Bebida">BEBIDA</a></p>
         
-    <form name="input" action="finpedido.php" method="post">
+    <form name="input" action="finpedido.php" method="get">
         <h2>SU MENÚ: </h2>
         <?php
             $pedidoListo= false;
@@ -51,7 +61,10 @@
             }
             
             if($pedidoListo)
-                echo '<button type="button" name="butPedido"><img width= 100 heigth=100 src="img/boton.jpeg"/></button>';        ?>
-    </form>
+                echo '<button type="submit" name="butPedido"><img width= 100 heigth=100 src="img/boton.jpeg"/></button>';        
+        
+            
+        ?>
+</form>
 </body>
 </html>
