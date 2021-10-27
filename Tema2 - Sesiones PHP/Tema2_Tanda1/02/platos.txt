@@ -1,0 +1,12 @@
+comida1 Segundo 5.5
+bebida1 Bebida 2
+comida2 Segundo 3.5
+entrante1 Primero 4
+bebida2 Bebida 1.5
+entrante2 Primero 5.5
+comida3 Segundo 8
+bebida3 Bebida 2.5
+bebida4 Bebida 3
+entrante3 Primero 1
+postre1 Postre 3.5
+postre2 Postre 5
