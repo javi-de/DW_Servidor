@@ -1,0 +1,3 @@
+
+::1--> ./DIRIMG/img1.jpeg  ./DIRIMG/img2.jfif  ./DIRIMG/img3.jfif  ./DIRIMG/img5.jfif  ./DIRIMG/img6.jfif  ./DIRIMG/img7.jfif  
+::1 --> ./DIRIMG/img6.jfif  
