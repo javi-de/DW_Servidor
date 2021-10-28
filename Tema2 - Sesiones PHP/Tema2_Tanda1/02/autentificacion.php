@@ -1,9 +1,8 @@
 <?php
 require_once 'libmenu.php';
     if( isset($_POST["butInvitado"]) )
-        header ("Location: pedido.php");
+        header ("Location: pedido.php?usu=invitado");
     else{
-        echo "else";
         if( isset($_POST["butSocio"]) ){
             $strUsu= trim($_POST["txtUsuario"]);
             $strPass= trim($_POST["txtPass"]);

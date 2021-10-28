@@ -7,9 +7,6 @@
     <title>entrada.php</title>
 </head>
 <body>
-    <?php
-        session_unset();
-    ?>
     <form name="input" action="autentificacion.php" method="post">
         <table>
             <tr>

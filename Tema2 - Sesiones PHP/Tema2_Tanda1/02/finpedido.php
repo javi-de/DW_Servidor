@@ -15,25 +15,24 @@
     <?php
         session_start();
         //session_destroy();
-        //unset($_SESSION["menu"]);
 
     require_once "libmenu.php";
 
         $arrPedido= $_SESSION["menu"];
         $arrPlatoYPrecio;
-
-        if(isset($_SESSION["login"]))
+        $descuento= 0;
+        
+        
+        if($_SESSION["login"]!= "invitado"){
+            echo $_SESSION["login"];
             $descuento= dameDcto($_SESSION["login"]);
-        else
-            $descuento= 0;
+        }
         
         foreach ($arrPedido as $nomPlato) {
             if($nomPlato!="unknown")
                 $arrPlatoYPrecio[$nomPlato]= damePrecio($nomPlato);
         }
-
-
-
+        
         /*
         foreach ($arrPlatoYPrecio as $nomPlato => $precio) {
             echo $nomPlato." - ".$precio;

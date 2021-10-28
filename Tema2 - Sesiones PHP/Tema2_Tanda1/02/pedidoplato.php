@@ -32,12 +32,6 @@
             ?>
         </select>
         <button type="submit" name="butElegir">ELEGIR <?php echo $tipoPlato ?></button>
-        
-        <?php
-            
-        
-            
-        ?>
     </form>
 </body>
 </html>

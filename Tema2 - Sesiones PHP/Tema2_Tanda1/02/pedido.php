@@ -8,17 +8,17 @@
 </head>
 <body>
     <?php
-        ini_set("session.use_cookie", "0");
+        //ini_set("session.use_cookie", "0");
         session_start();
+        //unset($_SESSION["login"]);
         
         if(isset($_GET["usu"])){
             $strUsu= $_GET["usu"];
-            echo $strUsu;
+            echo "Usuario: ".$_GET["usu"];
             //$strPass= $_GET["pass"];
             //echo $strPass;
             $_SESSION["login"]= $strUsu;
-        }
-        
+        }      
     ?>
     
     <p><a href="pedidoplato.php?tipo=Primero">PRIMER PLATO</a></p>
@@ -27,7 +27,9 @@
     <p><a href="pedidoplato.php?tipo=Bebida">BEBIDA</a></p>
         
     <form name="input" action="finpedido.php" method="get">
-        <h2>SU MENÚ: </h2>
+        
+        <h2>SU PEDIDO: </h2>
+        
         <?php
             $pedidoListo= false;
             
@@ -50,10 +52,10 @@
                 if( isset($_GET["Bebida"]) )
                     $_SESSION["menu"]["Bebida"]= $_GET["Bebida"];   
 
-                echo "<ul name='olPedido'>";
+                echo "<ul>";
                     foreach($_SESSION["menu"] as $tipo => $nomPlato) {
                         if($nomPlato!= "unknown"){
-                          echo "<li value='$nomPlato'>$tipo: $nomPlato</li>"; 
+                          echo "<li>$tipo: $nomPlato</li>"; 
                           $pedidoListo= true;
                         }
                     }
@@ -61,10 +63,9 @@
             }
             
             if($pedidoListo)
-                echo '<button type="submit" name="butPedido"><img width= 100 heigth=100 src="img/boton.jpeg"/></button>';        
-        
-            
+                echo '<button type="submit" name="butPedido"><img width= 100 heigth=100 src="img/boton.jpeg"/></button>';          
         ?>
-</form>
+    </form>
+    <p>Desconectar y <a href="entrada.php">volver al LOGIN</a></p>
 </body>
 </html>
