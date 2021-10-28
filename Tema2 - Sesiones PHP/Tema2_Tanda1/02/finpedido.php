@@ -14,7 +14,7 @@
 <body>
     <?php
         session_start();
-        session_destroy();
+        //session_destroy();
         //unset($_SESSION["menu"]);
 
     require_once "libmenu.php";
@@ -70,7 +70,7 @@
 </body>
 
 <?php
-    //unset($_SESSION["menu"]);
+    unset($_SESSION["menu"]);
 ?>
 
 </html>
