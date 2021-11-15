@@ -18,7 +18,13 @@ $css = base_url() . "style/stylesheet.css";
 	</div>
 	<div id="container">
 		<div id="bar">
-
-		
+			<ul>
+			<?php
+				foreach($generos as $gen){
+					echo "<li><a href='#'>".$gen."<a/></li>";
+				}
+			?>
+			</ul>
 		</div>
 		<div id="main">
+			
