@@ -25,19 +25,27 @@ class Mlibros extends CI_Model
     return $generos;
   }
 
-  function librosDe($genero){
-    $this->db->select('titulo');
-    $this->db->from('libros');
-    $this->db->where('genero', $genero);
+  function cogerLibrosPorGenero($genero = false){
+    $libros= [];
+    
+    $this->db->select('titulo, nombre');
+    $this->db->from('libros, autores');
+    $this->db->where('libros.idautor= autores.idautor');
+
+    if($genero!== false)
+      $this->db->where('genero', $genero);
+
     $query = $this->db->get();
 
     foreach ($query->result() as $row){
-      $titulos[] = $row->titulo;
+      $libros[] = ["titulo" => $row->titulo,
+                    "autor" => $row->nombre
+                   ];
     }
 
-    return $titulos;
+    return $libros;
   }
 
-
+  
 }
 ?>

@@ -6,26 +6,23 @@ class Chome extends CI_Controller {
 	function __construct(){
         parent::__construct();            
 
-        $this -> load -> model('Mlibros');
+        $this->load->model('Mlibros');
 	}
 
-	public function index(){
-        //*****parametros post/get
+        public function index(){
+                $this->genero();
+        }
 
+        public function genero($genero = false){
+                //cogiendo los libros de la BD
+                $libros = $this->Mlibros->cogerLibrosPorGenero($genero);
 
-        //*****acceso bd
-
-
-        //*****carga de vistas
-        //$this->load->view('v_titulobiblio');
-
-        $generos= $this->Mlibros->dameGeneros();
-        $this -> load -> view("v_titulobiblio", ["generos" => $generos]);
-
-        $titulos= $this->Mlibros->librosDe();
-        $this -> load -> view("v_titulobiblio", ["titulos" => $titulos]);
-
-        $this->load->view('v_pie');
-    }
+                //cargando las views
+                $generos= $this->Mlibros->dameGeneros();
+                $this->load->view("Vheader", ["generos" => $generos]);
+                $this->load->view('Vlibros', ["genero" => $genero, "libros" => $libros]);
+                //$this->lend();
+                $this->load->view('Vfooter');
+        }
 
 }

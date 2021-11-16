@@ -1,4 +1,3 @@
-<!-- Le llega un mensaje $mensaje(a colocar entre paréntesis)   -->
 <?php
 //para guardar la ruta del css
 $css = base_url() . "style/stylesheet.css";
@@ -21,7 +20,7 @@ $css = base_url() . "style/stylesheet.css";
 			<ul>
 			<?php
 				foreach($generos as $gen){
-					echo "<li><a href='#'>".$gen."<a/></li>";
+					echo "<li><a href='".site_url('chome/genero/'.$gen)."'>".$gen."<a/></li>";
 				}
 			?>
 			</ul>
