@@ -105,16 +105,18 @@ class Mlibros extends CI_Model
                           "idprestamo" => $fila->idprestamo,
                           "fecha" => $fila->fecha,
                         ];
-
     }
 
     return $librosPrestados;
   }
 
-  function borrarLibroPrestado($lend){
-    $this->db->where('idprestamo', $lend);
-    $this->db->borrar('prestamos');
+  
+  function borrarLibroTablaPrestamos($idLibro){
+    $this->db->where("idprestamo", $idLibro);
+    $this->db->delete("prestamos");
+    
     return $this->db->affected_rows() >= 1;
-}
+  }
+  
 }
 ?>

@@ -1,7 +1,7 @@
 <?php
     defined('BASEPATH') OR exit('No direct script access allowed');
 
-    echo form_open("/chome/genero/");
+    echo form_open("/chome/genero/$genero");
 ?>
     <table>
         <tr>
@@ -24,12 +24,10 @@
                     echo "<td>".$libro["autor"]."</td>";
                 echo "</tr>";
             }
+
             echo "<tr><td colspan='3'>";
             echo form_submit("butPrestar", "Prestar libros");//<input type='submit' name='butPrestar' value='Prestar libros'>
             echo "</td></tr>";
-            
-            
-            
         ?>
 
     </table>

@@ -30,8 +30,6 @@
 						echo "<li><a href='".site_url('Chome/genero/'.$gen)."'>".$gen."<a/></li>";
 					}
 				?>
-
-				
 			</ul>
 		</div>
 		<div id="main">
