@@ -3,10 +3,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Chome extends CI_Controller {
 
-	function __construct(){
-        parent::__construct();            
+        private $generos;
 
-        $this->load->model('Mlibros');
+	function __construct(){
+                parent::__construct();            
+
+                $this->load->model("Mlibros");
+                $this->generos= $this->Mlibros->dameGeneros();
+                $this->contador = 0;
 	}
 
         public function index(){
@@ -18,11 +22,212 @@ class Chome extends CI_Controller {
                 $libros = $this->Mlibros->cogerLibrosPorGenero($genero);
 
                 //cargando las views
-                $generos= $this->Mlibros->dameGeneros();
-                $this->load->view("Vheader", ["generos" => $generos]);
-                $this->load->view('Vlibros', ["genero" => $genero, "libros" => $libros]);
-                //$this->lend();
-                $this->load->view('Vfooter');
+                $this->load->view("Vheader", ["generos" => $this->generos]);
+                $this->load->view("Vlibros", ["genero" => $genero, "libros" => $libros]);
+                $this->librosPrestadosYNoPrestados();
+                $this->load->view("Vfooter");
         }
 
+        private function librosPrestadosYNoPrestados(){
+		if ( isset($_POST["butPrestar"]) && isset($_POST["checkLibro"]) ){
+			$nombreLibros= $_POST["checkLibro"];
+			$librosPrestados= [];
+			$librosNoPrestados= [];
+
+                        foreach ($nombreLibros as $nombreLibro) {
+                               //se obtiene el idlibro para acceder a la tabla prestamos
+                                $idLibro= $this->Mlibros->dameId($nombreLibro);
+                                echo "idLibro: ".$idLibro;
+                                echo "<br>";
+
+                                //se comprueba el número de libros que se han prestado
+				$numPrestados= $this->Mlibros->cuantosHayPrestados($idLibro);
+				echo "numPrestados: ".$numPrestados;
+				if ($numPrestados < 4){
+                                        //se crea el array $campos para poder guardar en prestamos los libros que se puedan prestar
+                                        $campos= [
+                                                "fecha" => date("Y-m-d"), 
+                                                "idlibro" => $idLibro
+                                        ];
+                                        $this->db->insert("prestamos", $campos);
+
+					$librosPrestados[]= $nombreLibro;
+                                }else
+					$librosNoPrestados[]= $nombreLibro;
+			}
+
+                        //se crean dos variales para la view VlibrosPrestamos
+			$this->load->view("VlibrosPrestamos", ["librosPrestados"=> $librosPrestados,
+                                                                "librosNoPrestados"=> $librosNoPrestados
+                                                              ]);
+		}
+	}
+
+        /*
+        public function calendario($fecha= false){
+		// Loads view 
+		$this->load->view('Vheader', ["generos" => $this->generos]);
+
+		if ($fecha !== false) {
+			$fechaLibros = $this->booksM->getLendsByDate($fecha);
+			$this->load->view("Vcalendario", [
+				"libros"=> $fechaLibros,
+				"fecha"=> $fecha
+			]);
+		} else $this->load->view("Vcalendario", ["libros" => []]);
+	}*/
+
+
+/*************************parte 2************************** */
+        public function prestamos(){
+                $this->load->view("Vheader", ["generos" => $this->generos]);
+
+                $todosLibrosPrestados= $this->Mlibros->dameTodosLibrosPrestados();
+                
+                if(isset($_POST["selectLibroPrestado"])){
+                        $libroSelecccionado= $_POST["selectLibroPrestado"];
+
+                        $this->session->set_userdata(["libroSelecccionado" => $libroSelecccionado]);
+			$this->loadLendLinks($todosLibrosPrestados, $libroSelecccionado);
+                        /*
+                        $datosLibroPrestado= $this->Mlibros->dameDatosLibroPrestado($libroSelecccionado);
+                        print_r($datosLibroPrestado);
+                        $this->load->view("parte2_VlibrosPrestados",
+                                          ["todosLibrosPrestados" => $todosLibrosPrestados,
+                                           "libroSelecccionado" => $libroSelecccionado
+                                          ]);
+
+                        $this->load->view("parte2_VlinksPrestamos", ["datosLibroPrestado" => $datosLibroPrestado]); */
+                }elseif ($this->session->has_userdata("libroSelecccionado"))
+                        $this->loadLendLinks($todosLibrosPrestados, $this->session->libroSelecccionado);
+                else
+                        $this->load->view("parte2_VlibrosPrestados", ["todosLibrosPrestados" => $todosLibrosPrestados, "contador" => $this->contador]);
+                
+   
+                $this->load->view("Vfooter");
+        }
+
+        private function loadLendLinks($todosLibrosPrestados, $libroSelecccionado){
+		$datosLibroPrestado= $this->Mlibros->dameDatosLibroPrestado($libroSelecccionado);
+                $this->load->view("parte2_VlibrosPrestados",
+                                                            ["todosLibrosPrestados" => $todosLibrosPrestados,
+                                                                "libroSelecccionado" => $libroSelecccionado
+                                                            ]);
+
+                $this->load->view("parte2_VlinksPrestamos", ["datosLibroPrestado" => $datosLibroPrestado, "eliminar" => $this->session->has_userdata('borrar')]);
+	}
+
+        public function borrar($id = false){
+
+		if($id !== false) 
+			if($this->session->has_userdata('borrar')) {
+				$_SESSION['borrar'][$id] = $id;
+			} else {
+				$_SESSION['borrar'] = [];
+				$_SESSION['borrar'][$id] = $id;
+			}
+		
+		$this->index();
+	}
+
+        public function eliminar(){
+		$this->contador = 0;
+		if($this->session->has_userdata('borrar')) {
+			foreach ($this->session->borrar as $id) {
+				if($this->Mlibro->borrarLibroPrestado($id))
+					$this->contador++;
+			}
+			$this->session->unset_userdata(['borrar','libroSelecccionado']);
+		}
+
+		$this->index();
+	}
+
+
+
+
+
+
+
+
+
+
 }
+
+/*
+        public function prestamos(){
+                $this->load->view("Vheader", ["generos" => $this->generos]);
+
+                //se cogen todos los libros prestados, para luego añadirlos al select de parte2_VlibrosPrestados
+                $todosLibrosPrestados= $this->Mlibros->dameTodosLibrosPrestados();
+                
+                if(isset($_POST["selectLibroPrestado"])){
+                        $libroSelecccionado= $_POST["selectLibroPrestado"];
+
+                        $this->session->set_userdata(["libroSelecccionado" => $libroSelecccionado]);
+			$this->cargarLibroSelec($todosLibrosPrestados, $libroSelecccionado);
+                }else{
+                        
+                        if ($this->session->has_userdata("libroSelecccionado")) 
+                                $this->cargarLibroSelec($todosLibrosPrestados, $this->session->libroSelecccionado);
+		        else
+                                $this->load->view("parte2_VlibrosPrestados",["todosLibrosPrestados" => $todosLibrosPrestados, "contador" => $this->contador]);
+                }
+
+                $this->load->view("Vfooter");
+        }
+
+        private function cargarLibroSelec($todosLibrosPrestados, $libroSelecccionado){
+		$datosLibroPrestado= $this->Mlibros->dameDatosLibroPrestado($libroSelecccionado);
+		$this->load->view("parte2_VlibrosPrestados",[
+                                                             "todosLibrosPrestados" => $todosLibrosPrestados,
+                                                             "libroSelecccionado" => $libroSelecccionado
+                                                            ]);
+                
+		$this->load->view("parte2_VlinksPrestamos",["datosLibroPrestado" => $datosLibroPrestado, "borrar" => $this->session->has_userdata('borrar')]);
+	}
+
+
+        public function borrar($idLibro= false){
+                if($idLibro!==false){
+                        if($this->session->has_userdata('borrar')) {
+				$_SESSION['borrar'][$idLibro] = $idLibro;
+			} else {
+				$_SESSION['borrar'] = [];
+				$_SESSION['borrar'][$idLibro] = $idLibro;
+			}
+                }
+        }
+*/
+
+
+
+
+
+/*
+
+public function prestamos(){
+                $this->load->view("Vheader", ["generos" => $this->generos]);
+
+                //se cogen todos los libros prestados, para luego añadirlos al select de parte2_VlibrosPrestados
+                $todosLibrosPrestados= $this->Mlibros->dameTodosLibrosPrestados();
+                
+                if(isset($_POST["selectLibroPrestado"])){
+                        $libroSelecccionado= $_POST["selectLibroPrestado"];
+
+                        $datosLibroPrestado= $this->Mlibros->dameDatosLibroPrestado($libroSelecccionado);
+                        print_r($datosLibroPrestado);
+                        $this->load->view("parte2_VlibrosPrestados",
+                                          ["todosLibrosPrestados" => $todosLibrosPrestados,
+                                           "libroSelecccionado" => $libroSelecccionado
+                                          ]);
+
+                        $this->load->view("parte2_VlinksPrestamos", ["datosLibroPrestado" => $datosLibroPrestado]); 
+                }else
+                        $this->load->view("parte2_VlibrosPrestados", ["todosLibrosPrestados" => $todosLibrosPrestados]);
+                
+   
+                $this->load->view("Vfooter");
+        }
+
+*/
