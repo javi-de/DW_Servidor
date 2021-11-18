@@ -65,20 +65,21 @@ class Chome extends CI_Controller {
 		}
 	}
 
-        /*
+/**********************parte calendario******************** */
         public function calendario($fecha= false){
-		// Loads view 
-		$this->load->view('Vheader', ["generos" => $this->generos]);
+                $this->load->view("Vheader", ["generos" => $this->generos]);
+                if($fecha!== false){
+                        //si existe una fecha, se buscan los libros prestados en esa fecha y se pasa a la view Vcalendario junto con la fecha
+                        $librosEnFecha= $this->Mlibros->dameLibrosActuales();
+                        $this->load->view("Vcalendario", ["librosEnFecha" => $librosEnFecha,
+                                                          "fecha" => $fecha
+                                                          ]);
+                }else
+                        //si no existe la fecha, se pasa una array vacio a la view Vcalendario, para que no de errores
+                        $this->load->view("Vcalendario", ["librosEnFecha" => []]);
 
-		if ($fecha !== false) {
-			$fechaLibros = $this->booksM->getLendsByDate($fecha);
-			$this->load->view("Vcalendario", [
-				"libros"=> $fechaLibros,
-				"fecha"=> $fecha
-			]);
-		} else $this->load->view("Vcalendario", ["libros" => []]);
-	}*/
-
+                $this->load->view("Vfooter");
+        }
 
 /*************************parte 2************************** */
         public function prestamos(){
@@ -114,11 +115,11 @@ class Chome extends CI_Controller {
 
         public function borrar($idLibro = false){
 		if($idLibro!== false) {
-			if($this->session->has_userdata('borrar')) {
-				$_SESSION['borrar'][$idLibro] = $idLibro;
+			if($this->session->has_userdata("borrar")) {
+				$_SESSION["borrar"][$idLibro] = $idLibro;
 			} else {
-				$_SESSION['borrar'] = [];
-				$_SESSION['borrar'][$idLibro] = $idLibro;
+				$_SESSION["borrar"] = [];
+				$_SESSION["borrar"][$idLibro] = $idLibro;
 			}
                 }
 
@@ -127,47 +128,16 @@ class Chome extends CI_Controller {
 
         public function eliminar(){
 		$this->contador = 0;
-		if($this->session->has_userdata('borrar')) {
+		if($this->session->has_userdata("borrar")) {
 			foreach ($this->session->borrar as $idLibro) {
                                 $this->Mlibros->borrarLibroTablaPrestamos($idLibro);
 				$this->contador++;
                                 //echo "contador: ".$this->contador;
 			}
-			$this->session->unset_userdata(['borrar','libroSelecccionado']);
+			$this->session->unset_userdata(["borrar","libroSelecccionado"]);
 		}
 
 		$this->prestamos();
 	}
 
 }
-
-
-
-
-
-/*
-        public function prestamos(){
-                $this->load->view("Vheader", ["generos" => $this->generos]);
-
-                //se cogen todos los libros prestados, para luego añadirlos al select de parte2_VlibrosPrestados
-                $todosLibrosPrestados= $this->Mlibros->dameTodosLibrosPrestados();
-                
-                if(isset($_POST["selectLibroPrestado"])){
-                        $libroSelecccionado= $_POST["selectLibroPrestado"];
-
-                        $datosLibroPrestado= $this->Mlibros->dameDatosLibroPrestado($libroSelecccionado);
-                        print_r($datosLibroPrestado);
-                        $this->load->view("parte2_VlibrosPrestados",
-                                          ["todosLibrosPrestados" => $todosLibrosPrestados,
-                                           "libroSelecccionado" => $libroSelecccionado
-                                          ]);
-
-                        $this->load->view("parte2_VlinksPrestamos", ["datosLibroPrestado" => $datosLibroPrestado]); 
-                }else
-                        $this->load->view("parte2_VlibrosPrestados", ["todosLibrosPrestados" => $todosLibrosPrestados]);
-                
-   
-                $this->load->view("Vfooter");
-        }
-
-*/

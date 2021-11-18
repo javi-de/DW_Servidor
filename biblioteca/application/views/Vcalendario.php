@@ -1,23 +1,22 @@
 <?php
     defined('BASEPATH') OR exit('No direct script access allowed');
 
+    $fechaActual = new DateTime();
+    $ultimoDiaMes = $fechaActual->format('t');
 
-    $dateObj = new DateTime();
-    $maxDay = $dateObj->format('t');
-
-    $params = [];
-    for ($day = 1; $day <= $maxDay; $day++) {
-        $params[$day] = site_url("/chome/calendar/". $dateObj->format('Y') . "-" . $dateObj->format('m') . "-" .$day);
+    $datos = [];
+    for ($dia= 1; $dia <= $ultimoDiaMes; $dia++) {
+        $datos[$dia] = site_url("/Chome/calendario/". $fechaActual->format("Y") . "-" . $fechaActual->format("m") . "-" .$dia);
     }
 
-    echo $this->calendar->generate($dateObj->format('Y'), $dateObj->format('m'), $params);
+    echo $this->calendario->generate($fechaActual->format("Y"), $fechaActual->format("m"), $datos);
 
-    if (isset($date) and is_array($books) and count($books) > 0) {
-        $lendDate = new DateTime($date);
-        echo "<h3>Libros prestados el " . $lendDate->format('d-M-Y') . "</h3>";
+    if (isset($fecha) and is_array($librosEnFecha) and count($librosEnFecha) > 0) {
+        $fechaLibrosPrestados = new DateTime($fecha);
+        echo "<h3>Libros prestados el " . $fechaLibrosPrestados->format("Y-m-d") . "</h3>";
 
-        foreach ($books as $book) {
-            echo "<li>$book</li>";
+        foreach ($librosEnFecha as $libro) {
+            echo "<li>$libro</li>";
         }
     }
 

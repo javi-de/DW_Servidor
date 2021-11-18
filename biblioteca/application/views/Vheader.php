@@ -19,8 +19,8 @@
 	</div>
 	<div id="menu">
 		<a href="<?= site_url() ?>">Todos los libros</a>
-		<!-- <a href="<?= site_url("/chome/calendario") ?>">Calendario</a> -->
-		<a href="<?= site_url("/chome/prestamos") ?>">Prestamos</a>
+		<a href="<?= site_url("/Chome/calendario") ?>">Calendario</a>
+		<a href="<?= site_url("/Chome/prestamos") ?>">Prestamos</a>
 	</div>
 	<div id="container">
 		<div id="bar">

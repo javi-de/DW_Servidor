@@ -67,9 +67,25 @@ class Mlibros extends CI_Model
     return $cantidad[0]->cant;
   }
   
-  /********************************************************** */
-
   
+  /********************************************************** */
+  function dameLibrosActuales($fecha){
+    $librosEnFecha=[];
+
+    $this->db->select("libros.titulo");
+    $this->db->from("libros");
+    $this->db->where("libros.idlibros= prestamos.idlibros");
+    $this->db->where('fecha', $fecha);
+    $this->db->distinct();
+
+    $query = $this->db->get();
+
+    foreach ($query->result() as $fila) {
+      $librosEnFecha[]= $fila->titulo;
+    }
+
+    return $librosEnFecha;
+  }
   
   
   /*************************parte 2************************** */
@@ -114,8 +130,6 @@ class Mlibros extends CI_Model
   function borrarLibroTablaPrestamos($idLibro){
     $this->db->where("idprestamo", $idLibro);
     $this->db->delete("prestamos");
-    
-    return $this->db->affected_rows() >= 1;
   }
   
 }
