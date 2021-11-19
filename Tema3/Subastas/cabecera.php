@@ -1,20 +1,14 @@
 <?php
-    require_once "config.php";
+    require_once "funcionesBD.php";
 
     session_start();
 
+    $txtBienvenida= "";
+
     //conectarse a la BD
     $conn= conectarBD();
-    function conectarBD(){
-        $conn= new mysqli(DB_HOST, DB_USER, DB_PASS, DB_DATABASE);
-        
-        if($conn->connect_errno > 0){   
-            die("Imposible conectarse con la base de datos [" . $conn->connect_error . "]");   
-        }  
-      
-        mysqli_set_charset($conn, "UTF8");
-        return $conn;
-    }
+    if($conn->connect_errno > 0) 
+        die("Imposible conectarse con la base de datos [" . $conn->connect_error . "]");
 ?>
 
 <html>
@@ -34,8 +28,9 @@
             <a href="index.php">Home</a>
             <?php
                 //si se ha iniciado sesión, mostrar link logout; si no, mostrar link login
-                if(isset($_SESSION['USERNAME']) == TRUE) {
+                if(isset($_SESSION['nombreUsu'])) {
                     echo "<a href='logout.php'>Logout</a>";
+                    $txtBienvenida= "Bienvenido ".$_SESSION["nombreUsu"];
                 }
                 else {
                     echo "<a href='login.php'>Login</a>";
@@ -45,6 +40,9 @@
         </div>
         <div id="container">
             <div id="bar">
-               <?php require("barra.php"); ?>
+                <!-- Mensaje para saber quién está conectado -->
+                <h2 class='bienvenida'><?php echo $txtBienvenida ?></h2>
+                
+                <?php require("barra.php"); ?>
             </div>
             <div id="main">
