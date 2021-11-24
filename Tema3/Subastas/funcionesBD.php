@@ -26,7 +26,7 @@
         $ejecucionCorrecta= $sentenciaPreparada->execute();
 
         if($ejecucionCorrecta){
-            $resultado= $sentenciaPreparada->get_result();
+            $resultado= $sentencia->get_result();
             
             if($resultado->num_rows> 0){
                 $fila= $resultado->fetch_assoc();
