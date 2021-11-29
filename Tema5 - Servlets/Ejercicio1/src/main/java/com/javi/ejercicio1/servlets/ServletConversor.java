@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.javi.ejercicio1.servlets;
 
 import java.io.IOException;
@@ -38,7 +33,7 @@ public class ServletConversor extends HttpServlet {
             out.println("<title>Servlet ServletConversor</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet ServletConversor at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Parametros: " + request.getParameter("celsius")+ "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -84,3 +79,4 @@ public class ServletConversor extends HttpServlet {
     }// </editor-fold>
 
 }
+ 
