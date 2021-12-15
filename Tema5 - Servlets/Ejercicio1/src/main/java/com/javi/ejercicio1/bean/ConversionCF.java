@@ -1,4 +1,4 @@
-package com.javi.ejercicio1.beans;
+package com.javi.ejercicio1.bean;
 
 public class ConversionCF {
         private double celsius;
@@ -6,7 +6,8 @@ public class ConversionCF {
         
         
         public ConversionCF(double temp, char tipoTemp){
-        //tipoTemp: 'c' para recoger celsius, 'f' para recoger fahrenheit
+        //tipoTemp: 'c' --> conversion de celsius a fahrenheit
+        //          'f' --> conversion de fahrenheit a celsius
             if(tipoTemp== 'c'){
                 celsius= temp;
                 fahrenheit= Cel_to_Fah(temp);

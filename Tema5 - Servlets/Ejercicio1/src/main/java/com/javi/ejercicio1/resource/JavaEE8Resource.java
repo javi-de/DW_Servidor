@@ -1,4 +1,4 @@
-package com.javi.ejercicio1.resources;
+package com.javi.ejercicio1.resource;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
