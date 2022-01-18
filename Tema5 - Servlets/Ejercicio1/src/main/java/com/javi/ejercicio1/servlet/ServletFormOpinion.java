@@ -27,32 +27,31 @@ public class ServletFormOpinion extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        StringBuilder html= new StringBuilder();
-        
-        html.append();
-        
-        
-        
-        
-        return html.toString();
-        
-        
-        
-        
+
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet ServletFormOpinion</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet ServletFormOpinion at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+            out.print(getPage());
         }
+
+    }
+
+    public String getPage() {
+
+        StringBuilder html = new StringBuilder();
+        html.append("<!DOCTYPE html>");
+        html.append("<html>");
+        html.append("<head>");
+        html.append("<title>Servlet ServletFormOpinion</title>");
+        html.append("</head>");
+        html.append("<body>");
+        html.append("<h1>Servlet ServletFormOpinion at </h1>");
+        html.append("</body>");
+        html.append("</html>");
+        html.append("");
+
+        return html.toString();
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
