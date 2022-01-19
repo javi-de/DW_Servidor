@@ -7,6 +7,7 @@ package servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -31,7 +32,17 @@ public class ServletFormOpinion extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
+        
         response.setContentType("text/html;charset=UTF-8");
+        
+        String error="";
+        String link="";
+
+        
+        
+        
+        
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
@@ -40,7 +51,42 @@ public class ServletFormOpinion extends HttpServlet {
             out.println("<title>Servlet ServletFormOpinion</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet ServletFormOpinion at " + request.getContextPath() + "</h1>");
+                out.println("<p style='color: red'>" + error + "</p>");
+                out.println();
+                
+                out.println("<form action='' method='POST'>");
+                    out.println("<label for='nombre'><strong>Nombre: </strong></label>");
+                    out.println("<input type='text' id='nombre' name='nombre'><br><br>");
+                    
+                    out.println("<label for='apellidos'><strong>Apellidos: </strong></label>");
+                    out.println("<input type='text' id='apellidos' name='apellidos'><br><br>");
+                    
+                    out.println("<div><strong>Opinión que le ha merecido este sitio web: </strong></div>");
+                    out.println("<input type='radio' id='opinionWeb1' name='opinionWeb' value='B'>");
+                    out.println("<label for='opinionWeb1'>Buena</label><br>");
+                    out.println("<input type='radio' id='opinionWeb2' name='opinionWeb' value='R'>");
+                    out.println("<label for='opinionWeb2'>Regular</label><br>");                 
+                    out.println("<input type='radio' id='opinionWeb3' name='opinionWeb' value='M'>");
+                    out.println("<label for='opinionWeb3'>Mala</label><br><br>");
+                    
+                    out.println("<label for='comentarios'><strong>Comentarios: </strong></label><br>");
+                    out.println("<input type='textarea' id='comentarios' name='comentarios'><br><br>");
+                    
+                    out.println("<div><strong>Tus secciones favoritas: </strong></div>");
+                    out.println("<input type='checkbox' id='' name='' value=''>");
+                    out.println("<label for=''></label><br>");
+                    out.println("<input type='checkbox' id='' name='' value=''>");
+                    out.println("<label for=''></label><br>");
+                    out.println("<input type='checkbox' id='' name='' value=''>");
+                    out.println("<label for=''></label><br>");
+                    out.println("<input type='checkbox' id='' name='' value=''>");
+                    out.println("<label for=''></label><br>");
+                    out.println("<input type='checkbox' id='' name='' value=''>");
+                    out.println("<label for=''></label><br>");
+                    out.println("<input type='checkbox' id='' name='' value=''>");
+                    out.println("<label for=''></label><br>");
+                out.println("</form>");
+            
             out.println("</body>");
             out.println("</html>");
         }
