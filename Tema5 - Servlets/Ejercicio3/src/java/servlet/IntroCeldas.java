@@ -14,6 +14,11 @@ public class IntroCeldas extends HttpServlet {
 
         response.setContentType("text/html;charset=UTF-8");
 
+        !!!!!
+        if(request.getParameter("butEnviar") == null)
+            response.sendRedirect(request.getContextPath());
+        !!!!!!!!!
+        
         int numFilas;
         if(request.getParameter("filas").isEmpty() || request.getParameter("filas").equalsIgnoreCase("0")){
             numFilas= 0;
@@ -36,7 +41,7 @@ public class IntroCeldas extends HttpServlet {
         }
 
         if(numFilas== 0 || numColumnas== 0){
-            response.sendRedirect(request.getContextPath() + "/ejercicio3/indexEjercicio3.html");
+            response.sendRedirect(request.getContextPath() + "/index.html");
         }else{
             try (PrintWriter out = response.getWriter()) {
                 out.println("<!DOCTYPE html>");

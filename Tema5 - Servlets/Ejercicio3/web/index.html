@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Ejercicio 5.3</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <h1>Ejercicio 5.3 - DIMENSIONESS DE LA MATRIZ</h1>      
+        <form action="/Ejercicio3/IntroCeldas" method="POST">
+            <table>
+                <tr>
+                    <td>
+                       <label for="filas">Filas</label> 
+                    </td>
+                    <td>
+                        <input type="number" id="filas" name="filas">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="columnas">Columnas</label> 
+                    </td>
+                    <td>
+                        <input type="number" id="columnas" name="columnas"> 
+                    </td>
+                </tr>
+            </table>
+            
+            <input type="checkbox" id="checkFondo" name="checkFondo" value="gris">
+            <label id="checkFondo">Gris de fondo</label>
+            <br>
+            
+            <button type="submit" name="butGenerar">Generar tabla</button>
+        </form>
+    </body>
+</html>
