@@ -14,10 +14,11 @@ public class IntroCeldas extends HttpServlet {
 
         response.setContentType("text/html;charset=UTF-8");
 
-        !!!!!
-        if(request.getParameter("butEnviar") == null)
+        // si se accede a esta página sin pulsar el boton "Generar tabla", volverá al index.html
+        if(request.getParameter("butGenerar")== null){
             response.sendRedirect(request.getContextPath());
-        !!!!!!!!!
+            return;
+        }
         
         int numFilas;
         if(request.getParameter("filas").isEmpty() || request.getParameter("filas").equalsIgnoreCase("0")){
@@ -56,7 +57,7 @@ public class IntroCeldas extends HttpServlet {
                     out.println("<p>numColumnas-> " + numColumnas + "</p>");
                     out.println("<p>fondoGris->" + fondoGris + "</p>");
 
-                    out.println("<form action='' method='POST'>");
+                    out.println("<form action='GuardarMatriz' method='POST'>");
                         out.println( dibujaMatriz(numFilas, numColumnas, fondoGris) );
                         out.println("<input type='submit' value='Guardar matriz'>");
                         out.println("<input type='reset' value='Restablecer'>");
