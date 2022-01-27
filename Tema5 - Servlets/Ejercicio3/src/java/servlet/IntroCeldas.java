@@ -59,10 +59,14 @@ public class IntroCeldas extends HttpServlet {
 
                     out.println("<form action='GuardarMatriz' method='POST'>");
                         out.println( dibujaMatriz(numFilas, numColumnas, fondoGris) );
-                        out.println("<input type='submit' value='Guardar matriz'>");
-                        out.println("<input type='reset' value='Restablecer'>");
+                        out.println("<input type='submit' name='butGuardar' value='Guardar matriz'>");
+                        out.println("<input type='reset' name='butRestablecer' value='Restablecer'>");
+                    
+                        //campos ocultos del número de filas y columnas, para recogerlos en GuardarMatriz
+                        out.println("<input type='hidden' name='filas' value='" + numFilas + "'>");
+                        out.println("<input type='hidden' name='columnas' value='" + numColumnas + "'>");
                     out.println("</form>");
-
+                out.println("<p><a href='IntroCeldas'>INTRODUCIR OTRA MATRIZ</a></p>");
                 out.println("</body>");
                 out.println("</html>");
             }
@@ -83,17 +87,17 @@ public class IntroCeldas extends HttpServlet {
                 tabla+= "<tr>";
                 for(int contCol=1; contCol<= numColumnas; contCol++){
                     tabla+= "<td>";
-                    tabla+= "<input type='number' name='celda" + contFil + contCol + "'>";
+                    tabla+= "<input type='number' name='celda" + contFil + "" + contCol + "'>";
                     tabla+= "</td>";
                 }
                 tabla+= "</tr>";
             } 
-            
             tabla+= "</table>";  
         
         return tabla;
     }
 
+    
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
