@@ -17,19 +17,25 @@ import javax.servlet.http.HttpSession;
 
 
 public class ServletFormLibros extends HttpServlet {
-
-    Catalogo catalogo= new Catalogo();
     
-    ArrayList<String> arrCatalogo= catalogo.getArrCatalogo();
-    ArrayList<String> librosGuardadosEnSesion= new ArrayList<String>();
-    ArrayList<String> librazos= new ArrayList<String>();
+    private ArrayList<String> arrCatalogo;
+    private ArrayList<String> librazos;
 
+    public ServletFormLibros() {
+        arrCatalogo= Catalogo.getArrCatalogo();
+        librazos= new ArrayList<String>();
+    }
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         
         HttpSession sesion = request.getSession(true);
+        ArrayList<String> librosSesion = (ArrayList<String>) request.getAttribute("lstLibros");
+        
+        if(librosSesion == null)
+            librosSesion = new ArrayList<>();
+        
                 
         //(ArrayList<String>)sesion.getAttribute("librosElegidos");
 

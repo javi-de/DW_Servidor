@@ -4,7 +4,7 @@ package bean;
 import java.util.ArrayList;
 
 public class Catalogo {
-    private static ArrayList<String> arrCatalogo= new ArrayList<String>(){{
+    private final static ArrayList<String> ARR_CATALOGO = new ArrayList<String>(){{
         add("1984");
         add("Caliban y la bruja");
         add("El senior de los anillos");
@@ -13,6 +13,6 @@ public class Catalogo {
     }};
     
     public static ArrayList<String> getArrCatalogo(){
-        return arrCatalogo;
+        return ARR_CATALOGO;
     }
 }
