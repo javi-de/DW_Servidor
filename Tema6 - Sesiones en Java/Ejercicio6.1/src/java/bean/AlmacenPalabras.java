@@ -13,16 +13,28 @@ import java.util.ArrayList;
  */
 public class AlmacenPalabras {
     private final static ArrayList<String> ARRALMACEN= new ArrayList<String>(){{
-        add("onomatopeya");
-        add("calcamonia");
-        add("palangana");
-        add("paralelepipedo");
-        add("guacho");
+        add("Benemerita");
+        add("Torquemada");
+        add("Benalmadena");
+        add("Sabiñanigo");
+        add("Nicomedes");
+        add("Ataulfo");
+        add("Perogrullo");
+        add("Coprofagia");
+        add("Hipopótamo");
+        add("Cocotero");
+        add("Titicaca");
+        add("Cacatúa");
+        add("Halitosis");
+        add("Machupichu");
+        add("Pichabrava");
+        add("Alioli");
+        
     }}; 
 
     public static String dameUnaPalabra(){
-        int numRandom= (int)Math.random()*ARRALMACEN.size();
-        String palabra= ARRALMACEN.get(numRandom);
+        int numRandom= (int)(Math.random()*ARRALMACEN.size());
+        String palabra= ARRALMACEN.get(numRandom).toUpperCase();
         
         return palabra;
     }

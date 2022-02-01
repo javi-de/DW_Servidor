@@ -4,9 +4,17 @@
         <servlet-name>ServletJuego</servlet-name>
         <servlet-class>servlet.ServletJuego</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ServletComprobar</servlet-name>
+        <servlet-class>servlet.ServletComprobar</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ServletJuego</servlet-name>
         <url-pattern>/ServletJuego</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServletComprobar</servlet-name>
+        <url-pattern>/ServletComprobar</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
