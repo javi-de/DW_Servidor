@@ -65,7 +65,7 @@ public class ServletComprobar extends HttpServlet {
         
         
         response.sendRedirect(request.getContextPath()+"/ServletJuego");
-
+        return;
         
         
         
