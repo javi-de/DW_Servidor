@@ -1,0 +1,16 @@
+Ensalada Primero 5
+Pasta Primero 4
+Espinacas Primero 3.5
+Entrecot Segundo 4
+Pollo Segundo 6
+Solomillo Segundo 5
+Merluza Segundo 4
+Hamburguesa Segundo 5
+Brownie Postre 4.5
+Yogurt Postre 2.5
+Tacos Postre 4.5
+Tarta Postre 4.5
+Nestea Bebida 3
+Cocacola Bebida 3
+Agua Bebida 1.5
+Vino Bebida 2

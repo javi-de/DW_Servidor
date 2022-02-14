@@ -1,0 +1,21 @@
+ALTER TABLE `item`
+    ADD CONSTRAINT `fk_item_categoria`
+    FOREIGN KEY (`id_cat`)
+    REFERENCES `categoria`(`id`);
+ALTER TABLE `item`
+    ADD CONSTRAINT `fk_item_usuario`
+    FOREIGN KEY (`id_user`)
+    REFERENCES `usuario`(`id`);
+ALTER TABLE `imagen`
+    ADD CONSTRAINT `fk_imagen_item`
+    FOREIGN KEY (`id_item`)
+    REFERENCES `item`(`id`);
+ALTER TABLE `puja`
+    ADD CONSTRAINT `fk_puja_item`
+    FOREIGN KEY (`id_item`)
+    REFERENCES `item`(`id`);
+ALTER TABLE `puja`
+    ADD CONSTRAINT `fk_puja_usuario`
+    FOREIGN KEY (`id_user`)
+    REFERENCES `usuario`(`id`);
+

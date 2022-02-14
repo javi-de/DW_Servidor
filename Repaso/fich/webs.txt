@@ -1,0 +1,6 @@
+http://www.google.es Google
+http://www.yahoo.es Yahoo
+http://www.bing.es Bing
+http://www.pepsi.es Pepsi
+http://www.cocacola.es CocaCola
+http://www.amazon.es Amazon

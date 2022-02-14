@@ -1,0 +1,18 @@
+Tornillo TY200;0.15
+Arandela;0.03
+Bisagra HG209;1.34
+Llave Allen;0.6
+acvb;2
+dss;2
+aasss;2
+dfddfdv;2
+cdcdcd;2
+ss;3
+juan;3
+aascs;4
+cscs;3
+cscs;3
+sccscs;3
+vvvccv;1
+Llave;5
+;
